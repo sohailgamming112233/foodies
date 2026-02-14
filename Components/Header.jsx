@@ -45,7 +45,7 @@ export default function Header() {
   };
 
   const navLinks = [
-    { name: "Home", path: "/home", icon: <FaHome /> },
+    { name: "Home", path: "/", icon: <FaHome /> },
     { name: "About", path: "/about", icon: <FaInfoCircle /> },
     { name: "Menu", path: "/menu", icon: <FaUtensils /> },
     { name: "Cart", path: "/addtocart", icon: <FaShoppingCart /> },
@@ -58,13 +58,14 @@ export default function Header() {
     <header className="sticky top-0 z-50 backdrop-blur-md bg-black/80 border-b border-yellow-500/20">
       <div className="max-w-7xl mx-auto flex justify-between items-center px-6 py-4">
         <Link
-          href={user ? "/home" : "/login"}
+          href={user ? "/" : "/login"}
           className="flex items-center gap-2 text-2xl font-bold text-yellow-400"
         >
           <FaUtensils />
           Foodies
         </Link>
 
+        {/* Desktop Menu */}
         <nav className="hidden md:flex gap-8 items-center text-lg">
           {user &&
             navLinks.map((link) => (
@@ -109,6 +110,7 @@ export default function Header() {
           )}
         </nav>
 
+        {/* Mobile Toggle Button */}
         <button
           className="md:hidden text-white text-2xl"
           onClick={() => setMobileOpen(!mobileOpen)}
@@ -116,6 +118,63 @@ export default function Header() {
           {mobileOpen ? <FaTimes /> : <FaBars />}
         </button>
       </div>
+
+      {/* Mobile Menu */}
+      {mobileOpen && (
+        <div className="md:hidden bg-black/95 px-6 pb-6 space-y-4">
+          {user &&
+            navLinks.map((link) => (
+              <Link
+                key={link.path}
+                href={link.path}
+                onClick={() => setMobileOpen(false)}
+                className={`flex items-center gap-3 py-2 ${
+                  pathname === link.path
+                    ? "text-yellow-400"
+                    : "text-white hover:text-yellow-300"
+                }`}
+              >
+                {link.icon}
+                {link.name}
+                {link.path === "/addtocart" && cart.length > 0 && (
+                  <span className="ml-auto bg-red-500 text-white text-xs px-2 py-[2px] rounded-full">
+                    {cart.length}
+                  </span>
+                )}
+              </Link>
+            ))}
+
+          {!user ? (
+            <>
+              <Link
+                href="/login"
+                onClick={() => setMobileOpen(false)}
+                className="block text-white hover:text-yellow-300"
+              >
+                Login
+              </Link>
+              <Link
+                href="/signup"
+                onClick={() => setMobileOpen(false)}
+                className="block text-white hover:text-yellow-300"
+              >
+                Signup
+              </Link>
+            </>
+          ) : (
+            <button
+              onClick={() => {
+                handleLogout();
+                setMobileOpen(false);
+              }}
+              className="flex items-center gap-2 text-red-400 hover:text-red-300"
+            >
+              <FaSignOutAlt />
+              Logout
+            </button>
+          )}
+        </div>
+      )}
     </header>
   );
 }
