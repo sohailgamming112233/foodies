@@ -6,25 +6,23 @@ import { toast } from "react-toastify";
 const CartContext = createContext();
 
 export const CartProvider = ({ children }) => {
+  
   const [cart, setCart] = useState([]);
 
   const addToCart = (item) => {
     setCart((prev) => {
       const existing = prev.find((c) => c.id === item.id);
+
       if (existing) {
+        toast.info("Increased quantity");
         return prev.map((c) =>
           c.id === item.id ? { ...c, quantity: c.quantity + 1 } : c,
         );
       }
+
+      toast.success("Item added to cart");
       return [...prev, { ...item, quantity: 1 }];
     });
-
-    const exists = cart.find((c) => c.id === item.id);
-    if (exists) {
-      toast.info("Increased quantity");
-    } else {
-      toast.success("Item added to cart");
-    }
   };
 
   const removeFromCart = (id) => {

@@ -1,53 +1,40 @@
 "use client";
 
 import { useState } from "react";
-import {
-  createUserWithEmailAndPassword,
-  updateProfile,
-} from "firebase/auth";
-import { auth } from "../../Components/firebase";
-import { toast, ToastContainer } from "react-toastify";
-import { useRouter } from "next/navigation";
 import Link from "next/link";
-import "react-toastify/dist/ReactToastify.css";
+import { useRouter } from "next/navigation";
+import { useAuth } from "../Context/Authentication";
 
 export default function Signup() {
+  const { handleSignup } = useAuth();
+  const router = useRouter();
+
   const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const router = useRouter();
 
-  const handleSignup = async (e) => {
+  const submitHandler = async (e: React.FormEvent) => {
     e.preventDefault();
-    try {
-      const userCredential =
-        await createUserWithEmailAndPassword(auth, email, password);
 
-      await updateProfile(userCredential.user, {
-        displayName: username,
-      });
+    const success = await handleSignup(username, email, password);
 
-      toast.success("Account Created Successfully ");
-      router.replace("/login");
-    } catch (error) {
-      toast.error(error.message);
+    if (success) {
+      router.push("/login");   // 🔥 Redirect after signup
     }
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-black via-gray-900 to-gray-800 px-4">
+    <div className="min-h-screen flex items-center justify-center bg-black">
       <form
-        onSubmit={handleSignup}
-        className="w-full max-w-md bg-white/10 backdrop-blur-xl border border-white/20 p-8 rounded-3xl shadow-2xl"
+        onSubmit={submitHandler}
+        className="w-full max-w-md p-8 bg-gray-900 rounded-xl"
       >
-        <h2 className="text-3xl font-bold text-center text-white mb-8">
-          Create Account 
-        </h2>
+        <h2 className="text-2xl text-white mb-6">Create Account</h2>
 
         <input
           type="text"
           placeholder="Username"
-          className="w-full p-3 mb-4 rounded-xl bg-black/40 text-white border border-gray-600 focus:outline-none focus:ring-2 focus:ring-yellow-400 transition"
+          className="w-full p-3 mb-4 rounded bg-gray-800 text-white"
           value={username}
           onChange={(e) => setUsername(e.target.value)}
           required
@@ -55,8 +42,8 @@ export default function Signup() {
 
         <input
           type="email"
-          placeholder="Email Address"
-          className="w-full p-3 mb-4 rounded-xl bg-black/40 text-white border border-gray-600 focus:outline-none focus:ring-2 focus:ring-yellow-400 transition"
+          placeholder="Email"
+          className="w-full p-3 mb-4 rounded bg-gray-800 text-white"
           value={email}
           onChange={(e) => setEmail(e.target.value)}
           required
@@ -65,28 +52,23 @@ export default function Signup() {
         <input
           type="password"
           placeholder="Password"
-          className="w-full p-3 mb-6 rounded-xl bg-black/40 text-white border border-gray-600 focus:outline-none focus:ring-2 focus:ring-yellow-400 transition"
+          className="w-full p-3 mb-4 rounded bg-gray-800 text-white"
           value={password}
           onChange={(e) => setPassword(e.target.value)}
           required
         />
 
-        <button
-          type="submit"
-          className="w-full bg-gradient-to-r from-yellow-400 to-orange-500 text-black font-semibold py-3 rounded-xl hover:scale-105 transition duration-300 shadow-lg"
-        >
+        <button className="w-full bg-yellow-400 p-3 rounded font-bold">
           Sign Up
         </button>
 
-        <p className="text-gray-300 text-center mt-6">
-          Already have an account?{" "}
-          <Link href="/login" className="text-yellow-400 hover:underline">
+        <p className="text-white mt-4">
+          Already have account?{" "}
+          <Link href="/login" className="text-yellow-400">
             Login
           </Link>
         </p>
       </form>
-
-      <ToastContainer position="top-right" autoClose={3000} />
     </div>
   );
 }

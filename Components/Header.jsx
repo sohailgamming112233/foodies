@@ -15,9 +15,9 @@ import {
   FaSignOutAlt,
 } from "react-icons/fa";
 import { useState, useEffect } from "react";
-import { useCart } from "../app/Context/CartContext";
+import { useCart } from "../app/context/CartContext";
 import { onAuthStateChanged, signOut } from "firebase/auth";
-import { auth } from "../Components/firebase";
+import { auth } from "../Components/firebase"; 
 import { toast } from "react-toastify";
 
 export default function Header() {
@@ -25,7 +25,7 @@ export default function Header() {
   const router = useRouter();
   const [mobileOpen, setMobileOpen] = useState(false);
   const [user, setUser] = useState(null);
-  const { cart } = useCart();
+  const { cart } = useCart() || { cart: [] };
 
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
@@ -44,6 +44,9 @@ export default function Header() {
     }
   };
 
+
+  if (!user) return null;
+
   const navLinks = [
     { name: "Home", path: "/", icon: <FaHome /> },
     { name: "About", path: "/about", icon: <FaInfoCircle /> },
@@ -58,7 +61,7 @@ export default function Header() {
     <header className="sticky top-0 z-50 backdrop-blur-md bg-black/80 border-b border-yellow-500/20">
       <div className="max-w-7xl mx-auto flex justify-between items-center px-6 py-4">
         <Link
-          href={user ? "/" : "/login"}
+          href="/"
           className="flex items-center gap-2 text-2xl font-bold text-yellow-400"
         >
           <FaUtensils />
@@ -67,50 +70,38 @@ export default function Header() {
 
         {/* Desktop Menu */}
         <nav className="hidden md:flex gap-8 items-center text-lg">
-          {user &&
-            navLinks.map((link) => (
-              <Link
-                key={link.path}
-                href={link.path}
-                className={`flex items-center gap-2 relative ${
-                  pathname === link.path
-                    ? "text-yellow-400"
-                    : "text-white hover:text-yellow-300"
-                }`}
-              >
-                <div className="relative flex items-center gap-2">
-                  {link.icon}
-                  {link.name}
-                  {link.path === "/addtocart" && cart.length > 0 && (
-                    <span className="absolute -top-2 -right-4 bg-red-500 text-white text-xs px-2 py-[2px] rounded-full">
-                      {cart.length}
-                    </span>
-                  )}
-                </div>
-              </Link>
-            ))}
-
-          {!user ? (
-            <>
-              <Link href="/login" className="text-white hover:text-yellow-300">
-                Login
-              </Link>
-              <Link href="/signup" className="text-white hover:text-yellow-300">
-                Signup
-              </Link>
-            </>
-          ) : (
-            <button
-              onClick={handleLogout}
-              className="flex items-center gap-2 text-red-400 hover:text-red-300"
+          {navLinks.map((link) => (
+            <Link
+              key={link.path}
+              href={link.path}
+              className={`flex items-center gap-2 relative ${
+                pathname === link.path
+                  ? "text-yellow-400"
+                  : "text-white hover:text-yellow-300"
+              }`}
             >
-              <FaSignOutAlt />
-              Logout
-            </button>
-          )}
+              <div className="relative flex items-center gap-2">
+                {link.icon}
+                {link.name}
+                {link.path === "/addtocart" && cart.length > 0 && (
+                  <span className="absolute -top-2 -right-4 bg-red-500 text-white text-xs px-2 py-[2px] rounded-full">
+                    {cart.length}
+                  </span>
+                )}
+              </div>
+            </Link>
+          ))}
+
+          <button
+            onClick={handleLogout}
+            className="flex items-center gap-2 text-red-400 hover:text-red-300"
+          >
+            <FaSignOutAlt />
+            Logout
+          </button>
         </nav>
 
-        {/* Mobile Toggle Button */}
+        {/* Mobile Toggle */}
         <button
           className="md:hidden text-white text-2xl"
           onClick={() => setMobileOpen(!mobileOpen)}
@@ -122,57 +113,37 @@ export default function Header() {
       {/* Mobile Menu */}
       {mobileOpen && (
         <div className="md:hidden bg-black/95 px-6 pb-6 space-y-4">
-          {user &&
-            navLinks.map((link) => (
-              <Link
-                key={link.path}
-                href={link.path}
-                onClick={() => setMobileOpen(false)}
-                className={`flex items-center gap-3 py-2 ${
-                  pathname === link.path
-                    ? "text-yellow-400"
-                    : "text-white hover:text-yellow-300"
-                }`}
-              >
-                {link.icon}
-                {link.name}
-                {link.path === "/addtocart" && cart.length > 0 && (
-                  <span className="ml-auto bg-red-500 text-white text-xs px-2 py-[2px] rounded-full">
-                    {cart.length}
-                  </span>
-                )}
-              </Link>
-            ))}
-
-          {!user ? (
-            <>
-              <Link
-                href="/login"
-                onClick={() => setMobileOpen(false)}
-                className="block text-white hover:text-yellow-300"
-              >
-                Login
-              </Link>
-              <Link
-                href="/signup"
-                onClick={() => setMobileOpen(false)}
-                className="block text-white hover:text-yellow-300"
-              >
-                Signup
-              </Link>
-            </>
-          ) : (
-            <button
-              onClick={() => {
-                handleLogout();
-                setMobileOpen(false);
-              }}
-              className="flex items-center gap-2 text-red-400 hover:text-red-300"
+          {navLinks.map((link) => (
+            <Link
+              key={link.path}
+              href={link.path}
+              onClick={() => setMobileOpen(false)}
+              className={`flex items-center gap-3 py-2 ${
+                pathname === link.path
+                  ? "text-yellow-400"
+                  : "text-white hover:text-yellow-300"
+              }`}
             >
-              <FaSignOutAlt />
-              Logout
-            </button>
-          )}
+              {link.icon}
+              {link.name}
+              {link.path === "/addtocart" && cart.length > 0 && (
+                <span className="ml-auto bg-red-500 text-white text-xs px-2 py-[2px] rounded-full">
+                  {cart.length}
+                </span>
+              )}
+            </Link>
+          ))}
+
+          <button
+            onClick={() => {
+              handleLogout();
+              setMobileOpen(false);
+            }}
+            className="flex items-center gap-2 text-red-400 hover:text-red-300"
+          >
+            <FaSignOutAlt />
+            Logout
+          </button>
         </div>
       )}
     </header>
