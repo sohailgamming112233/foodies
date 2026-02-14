@@ -10,13 +10,21 @@ export const CartProvider = ({ children }) => {
 
   const addToCart = (item) => {
     setCart((prev) => {
-      if (prev.find((c) => c.id === item.id)) {
-        toast.info("Item already in cart");
-        return prev;
+      const existing = prev.find((c) => c.id === item.id);
+      if (existing) {
+        return prev.map((c) =>
+          c.id === item.id ? { ...c, quantity: c.quantity + 1 } : c,
+        );
       }
-      toast.success("Item added to cart");
-      return [...prev, item];
+      return [...prev, { ...item, quantity: 1 }];
     });
+
+    const exists = cart.find((c) => c.id === item.id);
+    if (exists) {
+      toast.info("Increased quantity");
+    } else {
+      toast.success("Item added to cart");
+    }
   };
 
   const removeFromCart = (id) => {
@@ -26,8 +34,34 @@ export const CartProvider = ({ children }) => {
     });
   };
 
+  const increaseQuantity = (id) => {
+    setCart((prev) =>
+      prev.map((item) =>
+        item.id === id ? { ...item, quantity: item.quantity + 1 } : item,
+      ),
+    );
+  };
+
+  const decreaseQuantity = (id) => {
+    setCart((prev) =>
+      prev
+        .map((item) =>
+          item.id === id ? { ...item, quantity: item.quantity - 1 } : item,
+        )
+        .filter((item) => item.quantity > 0),
+    );
+  };
+
   return (
-    <CartContext.Provider value={{ cart, addToCart, removeFromCart }}>
+    <CartContext.Provider
+      value={{
+        cart,
+        addToCart,
+        removeFromCart,
+        increaseQuantity,
+        decreaseQuantity,
+      }}
+    >
       {children}
     </CartContext.Provider>
   );

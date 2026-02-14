@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { usePathname } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import {
   FaHome,
   FaInfoCircle,
@@ -12,31 +12,53 @@ import {
   FaShoppingCart,
   FaBars,
   FaTimes,
+  FaSignOutAlt,
 } from "react-icons/fa";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useCart } from "../app/Context/CartContext";
+import { onAuthStateChanged, signOut } from "firebase/auth";
+import { auth } from "../Components/firebase";
+import { toast } from "react-toastify";
 
-const links = [
-  { name: "Home", path: "/", icon: <FaHome /> },
-  { name: "About", path: "/about", icon: <FaInfoCircle /> },
-  { name: "Menu", path: "/menu", icon: <FaUtensils /> },
-  { name: "Cart", path: "/addtocart", icon: <FaShoppingCart /> },
-  { name: "Services", path: "/services", icon: <FaServicestack /> },
-  { name: "All Products", path: "/allproducts", icon: <FaBoxOpen /> },
-  { name: "Contact", path: "/contact", icon: <FaPhoneAlt /> },
-];
-
-const Header = () => {
+export default function Header() {
   const pathname = usePathname();
+  const router = useRouter();
   const [mobileOpen, setMobileOpen] = useState(false);
+  const [user, setUser] = useState(null);
   const { cart } = useCart();
+
+  useEffect(() => {
+    const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
+      setUser(currentUser);
+    });
+    return () => unsubscribe();
+  }, []);
+
+  const handleLogout = async () => {
+    try {
+      await signOut(auth);
+      toast.success("Logged Out Successfully 👋");
+      router.replace("/login");
+    } catch (error) {
+      toast.error(error.message);
+    }
+  };
+
+  const navLinks = [
+    { name: "Home", path: "/home", icon: <FaHome /> },
+    { name: "About", path: "/about", icon: <FaInfoCircle /> },
+    { name: "Menu", path: "/menu", icon: <FaUtensils /> },
+    { name: "Cart", path: "/addtocart", icon: <FaShoppingCart /> },
+    { name: "Services", path: "/services", icon: <FaServicestack /> },
+    { name: "All Products", path: "/allproducts", icon: <FaBoxOpen /> },
+    { name: "Contact", path: "/contact", icon: <FaPhoneAlt /> },
+  ];
 
   return (
     <header className="sticky top-0 z-50 backdrop-blur-md bg-black/80 border-b border-yellow-500/20">
       <div className="max-w-7xl mx-auto flex justify-between items-center px-6 py-4">
-
         <Link
-          href="/"
+          href={user ? "/home" : "/login"}
           className="flex items-center gap-2 text-2xl font-bold text-yellow-400"
         >
           <FaUtensils />
@@ -44,27 +66,47 @@ const Header = () => {
         </Link>
 
         <nav className="hidden md:flex gap-8 items-center text-lg">
-          {links.map((link) => (
-            <Link
-              key={link.path}
-              href={link.path}
-              className={`flex items-center gap-2 relative ${
-                pathname === link.path
-                  ? "text-yellow-400"
-                  : "text-white hover:text-yellow-300"
-              }`}
+          {user &&
+            navLinks.map((link) => (
+              <Link
+                key={link.path}
+                href={link.path}
+                className={`flex items-center gap-2 relative ${
+                  pathname === link.path
+                    ? "text-yellow-400"
+                    : "text-white hover:text-yellow-300"
+                }`}
+              >
+                <div className="relative flex items-center gap-2">
+                  {link.icon}
+                  {link.name}
+                  {link.path === "/addtocart" && cart.length > 0 && (
+                    <span className="absolute -top-2 -right-4 bg-red-500 text-white text-xs px-2 py-[2px] rounded-full">
+                      {cart.length}
+                    </span>
+                  )}
+                </div>
+              </Link>
+            ))}
+
+          {!user ? (
+            <>
+              <Link href="/login" className="text-white hover:text-yellow-300">
+                Login
+              </Link>
+              <Link href="/signup" className="text-white hover:text-yellow-300">
+                Signup
+              </Link>
+            </>
+          ) : (
+            <button
+              onClick={handleLogout}
+              className="flex items-center gap-2 text-red-400 hover:text-red-300"
             >
-              <div className="relative flex items-center gap-2">
-                {link.icon}
-                {link.name}
-                {link.path === "/addtocart" && cart.length > 0 && (
-                  <span className="absolute -top-2 -right-4 bg-red-500 text-white text-xs px-2 py-[2px] rounded-full">
-                    {cart.length}
-                  </span>
-                )}
-              </div>
-            </Link>
-          ))}
+              <FaSignOutAlt />
+              Logout
+            </button>
+          )}
         </nav>
 
         <button
@@ -76,6 +118,4 @@ const Header = () => {
       </div>
     </header>
   );
-};
-
-export default Header;
+}
