@@ -5,7 +5,7 @@ import { CartProvider } from "./Context/CartContext";
 import { AuthProvider } from "./Context/Authentication";
 import { ApiProvider } from "./Context/Api";
 import Header from "../Components/Header";
-import Footer from "../components/Footer";
+import Footer from "../Components/Footer";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
