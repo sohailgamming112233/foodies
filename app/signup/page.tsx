@@ -3,7 +3,7 @@
 import { useState } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { useAuth } from "../context/Authentication";
+import { useAuth } from "../Context/Authentication";
 
 export default function Signup() {
   const { handleSignup } = useAuth();

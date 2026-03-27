@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import Link from "next/link";
-import { useAuth } from "../context/Authentication";
+import { useAuth } from "../Context/Authentication";
 
 export default function Login() {
   const { handleLogin, handleGoogleLogin } = useAuth();
