@@ -36,7 +36,7 @@ export default function Contact() {
         message: "",
       });
     } catch (error) {
-      toast.error(error.message);
+      toast.error(error instanceof Error ? error.message : "An error occurred while sending the message ❌" );
     }
   };
 
