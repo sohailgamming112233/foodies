@@ -1,0 +1,219 @@
+[
+  {
+    "name": "Chocolate Croissant",
+    "category": "Pastry",
+    "price": 4.5,
+    "description": "Flaky pastry filled with rich chocolate.",
+    "image": "https://images.unsplash.com/photo-1588196749597-9ff075ee6b5b",
+    "special": true
+  },
+  {
+    "name": "Strawberry Danish",
+    "category": "Pastry",
+    "price": 4.0,
+    "description": "Buttery pastry with strawberry filling.",
+    "image": "https://images.unsplash.com/photo-1608198093002-ad4e005484ec",
+    "special": false
+  },
+  {
+    "name": "Vanilla Cupcake",
+    "category": "Cake",
+    "price": 3.5,
+    "description": "Soft vanilla cupcake with cream topping.",
+    "image": "https://images.unsplash.com/photo-1578985545062-69928b1d9587",
+    "special": false
+  },
+  {
+    "name": "Chocolate Cake",
+    "category": "Cake",
+    "price": 5.0,
+    "description": "Rich chocolate layered cake.",
+    "image": "https://images.unsplash.com/photo-1605478371310-a9f1e96b4ff4",
+    "special": true
+  },
+  {
+    "name": "Red Velvet Cake",
+    "category": "Cake",
+    "price": 5.5,
+    "description": "Moist red velvet cake.",
+    "image": "https://images.unsplash.com/photo-1614707267537-b85aaf00c4b7",
+    "special": false
+  },
+  {
+    "name": "Blueberry Muffin",
+    "category": "Muffin",
+    "price": 3.0,
+    "description": "Fresh muffin loaded with blueberries.",
+    "image": "https://images.unsplash.com/photo-1509440159596-0249088772ff",
+    "special": false
+  },
+  {
+    "name": "Chocolate Muffin",
+    "category": "Muffin",
+    "price": 3.0,
+    "description": "Soft muffin with chocolate chips.",
+    "image": "https://images.unsplash.com/photo-1587735243615-c03f25aaff15",
+    "special": false
+  },
+  {
+    "name": "Apple Tart",
+    "category": "Tart",
+    "price": 4.75,
+    "description": "Crispy tart filled with apple slices.",
+    "image": "https://images.unsplash.com/photo-1562440499-64c9a111f713",
+    "special": false
+  },
+  {
+    "name": "Lemon Tart",
+    "category": "Tart",
+    "price": 4.75,
+    "description": "Tangy lemon tart.",
+    "image": "https://images.unsplash.com/photo-1505253216365-6b6d15c1e2c9",
+    "special": false
+  },
+  {
+    "name": "Cappuccino",
+    "category": "Drink",
+    "price": 2.5,
+    "description": "Hot creamy cappuccino.",
+    "image": "https://images.unsplash.com/photo-1509042239860-f550ce710b93",
+    "special": false
+  },
+  {
+    "name": "Latte",
+    "category": "Drink",
+    "price": 2.75,
+    "description": "Smooth latte with milk foam.",
+    "image": "https://images.unsplash.com/photo-1498804103079-a6351b050096",
+    "special": false
+  },
+  {
+    "name": "Espresso",
+    "category": "Drink",
+    "price": 2.0,
+    "description": "Strong espresso shot.",
+    "image": "https://images.unsplash.com/photo-1511920170033-f8396924c348",
+    "special": false
+  },
+  {
+    "name": "Black Forest Cake",
+    "category": "Cake",
+    "price": 6.0,
+    "description": "Chocolate cake with cherries.",
+    "image": "https://images.unsplash.com/photo-1599785209707-28d8d4b0e1c3",
+    "special": true
+  },
+  {
+    "name": "Choco Lava Cake",
+    "category": "Cake",
+    "price": 6.5,
+    "description": "Warm cake with melted chocolate center.",
+    "image": "https://images.unsplash.com/photo-1601979031925-424e53b6caaa",
+    "special": true
+  },
+  {
+    "name": "Cinnamon Roll",
+    "category": "Pastry",
+    "price": 4.6,
+    "description": "Soft cinnamon roll.",
+    "image": "https://images.unsplash.com/photo-1586985289688-ca3cf47d3e6e",
+    "special": false
+  },
+  {
+    "name": "Double Chocolate Muffin",
+    "category": "Muffin",
+    "price": 3.6,
+    "description": "Extra chocolate muffin.",
+    "image": "https://images.unsplash.com/photo-1559628233-100c798642d4",
+    "special": false
+  },
+  {
+    "name": "Cold Coffee",
+    "category": "Drink",
+    "price": 3.1,
+    "description": "Chilled coffee with cream.",
+    "image": "https://images.unsplash.com/photo-1461023058943-07fcbe16d735",
+    "special": false
+  },
+
+  {
+    "name": "Mango Cake",
+    "category": "Cake",
+    "price": 5.9,
+    "description": "Fresh mango flavored sponge cake.",
+    "image": "https://images.unsplash.com/photo-1551024506-0bccd828d307",
+    "special": false
+  },
+  {
+    "name": "Oreo Cupcake",
+    "category": "Cake",
+    "price": 4.2,
+    "description": "Chocolate cupcake topped with Oreo cream.",
+    "image": "https://images.unsplash.com/photo-1599785209707-28d8d4b0e1c3",
+    "special": true
+  },
+  {
+    "name": "Caramel Latte",
+    "category": "Drink",
+    "price": 3.4,
+    "description": "Latte blended with sweet caramel syrup.",
+    "image": "https://images.unsplash.com/photo-1498804103079-a6351b050096",
+    "special": false
+  },
+  {
+    "name": "Iced Latte",
+    "category": "Drink",
+    "price": 3.2,
+    "description": "Cold latte served with ice cubes.",
+    "image": "https://images.unsplash.com/photo-1461023058943-07fcbe16d735",
+    "special": false
+  },
+  {
+    "name": "Pineapple Tart",
+    "category": "Tart",
+    "price": 4.95,
+    "description": "Sweet pineapple filled tart.",
+    "image": "https://images.unsplash.com/photo-1603532648955-039310d9ed75",
+    "special": false
+  },
+  {
+    "name": "Banana Cake",
+    "category": "Cake",
+    "price": 5.2,
+    "description": "Moist banana flavored cake slice.",
+    "image": "data:image/jpeg;base64,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",
+    "special": false
+  },
+  {
+    "name": "Hazelnut Latte",
+    "category": "Drink",
+    "price": 3.6,
+    "description": "Latte infused with hazelnut flavor.",
+    "image": "https://images.unsplash.com/photo-1498804103079-a6351b050096",
+    "special": false
+  },
+  {
+    "name": "Strawberry Muffin",
+    "category": "Muffin",
+    "price": 3.3,
+    "description": "Soft muffin with strawberry chunks.",
+    "image": "https://images.unsplash.com/photo-1559622214-f8a9850965bb",
+    "special": false
+  },
+  {
+    "name": "Butter Croissant",
+    "category": "Pastry",
+    "price": 3.8,
+    "description": "Classic buttery croissant.",
+    "image": "https://images.unsplash.com/photo-1583337130417-3346a1be7dee",
+    "special": false
+  },
+  {
+    "name": "Mocha",
+    "category": "Drink",
+    "price": 3.0,
+    "description": "Coffee blended with chocolate.",
+    "image": "https://images.unsplash.com/photo-1509042239860-f550ce710b93",
+    "special": true
+  }
+]

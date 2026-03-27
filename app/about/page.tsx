@@ -6,7 +6,6 @@ import { FaCakeCandles } from "react-icons/fa6"; // ya FaBirthdayCake agar fa6 i
 const AboutPage = () => {
   return (
     <main className="bg-zinc-50 dark:bg-black text-black dark:text-white min-h-screen px-6 py-16">
-
       {/* HERO & ABOUT */}
       <section className="max-w-4xl mx-auto text-center space-y-6">
         <h1 className="text-4xl md:text-5xl font-bold">
@@ -46,10 +45,11 @@ const AboutPage = () => {
       {/* WHY CHOOSE US */}
       <section className="mt-20 max-w-6xl mx-auto grid md:grid-cols-2 gap-10 items-center">
         <img
-          src="/pastry.jpg"
+          src="https://images.unsplash.com/photo-1600891964599-f61ba0e24092?auto=format&fit=crop&w=800&q=80"
           alt="Fresh Pastries"
           className="rounded-3xl shadow-2xl w-full object-cover h-96"
         />
+
         <div className="space-y-6">
           <h2 className="text-3xl font-bold">Why Choose Us?</h2>
           <ul className="text-zinc-600 dark:text-zinc-400 list-none space-y-4">

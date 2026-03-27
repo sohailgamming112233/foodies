@@ -1,20 +1,18 @@
-import { initializeApp } from "firebase/app";
-import { getAuth } from "firebase/auth";
-import { GoogleAuthProvider } from "firebase/auth/web-extension";
+import { initializeApp, getApps, getApp } from "firebase/app";
+import { getAuth, GoogleAuthProvider } from "firebase/auth";
 import { getFirestore } from "firebase/firestore";
 
 const firebaseConfig = {
   apiKey: "AIzaSyBtgp64bGFqzqT9UIEfoXNMD8AtnKDfOiE",
   authDomain: "foodies-91abf.firebaseapp.com",
   projectId: "foodies-91abf",
-  storageBucket: "foodies-91abf.firebasestorage.app",
+  storageBucket: "foodies-91abf.appspot.com",
   messagingSenderId: "42297069628",
   appId: "1:42297069628:web:bb570bde4c6be1a28a3339",
 };
 
-const app = initializeApp(firebaseConfig);
+const app = !getApps().length ? initializeApp(firebaseConfig) : getApp();
 
-export const provider = new GoogleAuthProvider();
-export const auth = getAuth(app);
 export const db = getFirestore(app);
-
+export const auth = getAuth(app);
+export const provider = new GoogleAuthProvider();

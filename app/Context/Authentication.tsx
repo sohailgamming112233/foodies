@@ -12,17 +12,17 @@ import {
 import { auth } from "../../Components/firebase";
 import { useRouter } from "next/navigation";
 
-const AuthContext = createContext();
+const AuthContext = createContext<any>(null);
 
-export const AuthProvider = ({ children }) => {
+export const AuthProvider = ({ children }: any) => {
   const router = useRouter();
 
-  const handleLogin = async (email, password) => {
+  const handleLogin = async (email: string, password: string) => {
     try {
       await signInWithEmailAndPassword(auth, email, password);
       toast.success("Login Successful");
       router.replace("/");
-    } catch (error) {
+    } catch (error: any) {
       toast.error(error.message);
     }
   };
@@ -35,12 +35,16 @@ export const AuthProvider = ({ children }) => {
       await signInWithPopup(auth, provider);
       toast.success("Google Login Successful");
       router.replace("/");
-    } catch (error) {
+    } catch (error: any) {
       toast.error(error.message);
     }
   };
 
-  const handleSignup = async (username, email, password) => {
+  const handleSignup = async (
+    username: string,
+    email: string,
+    password: string
+  ) => {
     try {
       const userCredential =
         await createUserWithEmailAndPassword(auth, email, password);
@@ -51,7 +55,7 @@ export const AuthProvider = ({ children }) => {
 
       toast.success("Account Created Successfully");
       router.replace("/login");
-    } catch (error) {
+    } catch (error: any) {
       toast.error(error.message);
     }
   };
@@ -65,4 +69,8 @@ export const AuthProvider = ({ children }) => {
   );
 };
 
-export const useAuth = () => useContext(AuthContext);
+export const useAuth = () => {
+  const context = useContext(AuthContext);
+  if (!context) throw new Error("AuthProvider missing");
+  return context;
+};
